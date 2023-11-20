@@ -1,6 +1,8 @@
 import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export default function Preferences() {
+export default function Portfolio() {
     const [portfolio, setPortfolio] = useState([]);
     useEffect(() => {
       async function fetchExchangeRates() {
@@ -22,8 +24,8 @@ export default function Preferences() {
       fetchExchangeRates();
     }, []);
     return (
-      <div className="App">
-        <h1>CoinAPI Cryptocurrency Portfolio Tracker App</h1>
+      <div className="Portfolio">
+        <h1>Your Cryptocurrency Portfolio Tracker App</h1>
         <ul>
           {Object.entries(portfolio).map(([asset, exchangeRate]) => (
             <li key={asset}>{asset}: {exchangeRate}</li>

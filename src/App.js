@@ -1,21 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Dashboard from '../Login/Login';
-import Preferences from '../Portfolio/Portfolio';
+import Portfolio from '../src/components/Portfolio';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Login from '../src/components/Login';
+
+import useToken from '../src/components/App';
 
 function App() {
-  <div className="wrapper">
+
+  const { token, setToken } = useToken();
+
+  if(!token) {
+    return <Login setToken={setToken} />
+  }
+  <div className="App">
       <h1>Application</h1>
       <BrowserRouter>
         <Switch>
-          <Route path="/dashboard">
-            <Dashboard />
+          <Route path="/Login">
+            <Login />
           </Route>
-          <Route path="/preferences">
-            <Preferences />
+          <Route path="/Portfolio">
+            <Portfolio />
           </Route>
         </Switch>
       </BrowserRouter>
