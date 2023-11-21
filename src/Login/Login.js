@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
+
 import './Login.css';
 
 async function loginUser(credentials) {
@@ -11,12 +13,19 @@ async function loginUser(credentials) {
    body: JSON.stringify(credentials)
  })
    .then(data => data.json())
+   .catch( err => {
+    console.log("Failed fetch", err)
+   })
 }
 
 export default function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
-
+ 
+  function setToken(userToken) {
+    sessionStorage.setItem('token', JSON.stringify(userToken));
+  }
+  
   const handleSubmit = async e => {
     e.preventDefault();
     const token = await loginUser({
@@ -24,12 +33,12 @@ export default function Login({ setToken }) {
       password
     });
     setToken(token);
+
   }
 
   return(
-    <div className="Login">
-      <h1>Welcome to Cryptocurrency Portfolio Tracker App</h1>
-      <h2>Please Log In</h2>
+    <div className="login-wrapper">
+      <h1>Please Log In</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <p>Username</p>

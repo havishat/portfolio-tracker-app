@@ -1,32 +1,32 @@
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import React  from 'react';
 import logo from './logo.svg';
 import './App.css';
-// import Portfolio from '../src/components/Portfolio';
+import Portfolio from './Portfolio/Portfolio';
+import Login from './Login/Login';
+import UserToken from './Token/UserToken';
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-//import Login from '../src/components/Login';
-
-import userToken from '../src/components/Token';
 
 function App() {
-
-  const { token, setToken } = userToken();
+  const { token, setToken } = UserToken();
 
   if(!token) {
     return <Login setToken={setToken} />
   }
+
+  return (
   <div className="App">
       <h1>Application</h1>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/Login">
-            <Login />
-          </Route>
-          <Route path="/Portfolio">
-            <Portfolio />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <Router>
+        <Routes>
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/portfolio" element={<Portfolio />} />
+        </Routes>
+      </Router>
     </div>
+  )
 }
 
-export default App;
+export default App; 
+
+          /* <Route exact path="/portfolio" element={<Portfolio />} /> */
